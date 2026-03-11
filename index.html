@@ -3,22 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Portal TKA Kec Kandangan</title>
     
-    <link rel="icon" href="https://img.icons8.com/color/48/fingerprint.png" type="image/png">
-    <link rel="apple-touch-icon" href="https://img.icons8.com/color/48/fingerprint.png">
+    <meta name="theme-color" content="#f0f4f8">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#0d6efd">
+    <meta name="apple-mobile-web-app-title" content="Portal TKA">
+    
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <title>Portal TKA Kandangan</title>
+
+    <link rel="icon" href="https://i.ibb.co.com/ymkk8HJy/image.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co.com/ymkk8HJy/image.png">
 
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #f8f9fa; }
-        iframe { width: 100%; height: 100%; border: none; display: block; }
+        /* Reset margin & padding browser bawaan */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh; /* Full layar */
+            overflow: hidden; /* Mencegah scroll di luar iframe */
+            background-color: #f0f4f8; /* Warna background saat loading */
+            -webkit-tap-highlight-color: transparent; /* Hilangkan efek kotak biru saat tombol ditekan di HP */
+        }
+
+        /* Styling iframe agar memenuhi layar & tanpa border */
+        #app-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* Animasi Loading saat iframe sedang memuat GAS */
+        #loading-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            transition: opacity 0.5s ease;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #cbd5e1;
+            border-top: 4px solid #3b82f6; /* Warna biru tailwind */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-    <iframe src="https://script.google.com/macros/s/AKfycbydR84qPAoYX6bk1ZgpdeUZunhyRjwaax9C-ioCqwfGBepXwsYHqNWL2QfRf1Mw_-Uc0g/exec" allow="camera; microphone; geolocation"></iframe>
+
+    <div id="loading-screen">
+        <img src="https://i.ibb.co.com/ymkk8HJy/image.png" alt="Logo" style="width: 80px; margin-bottom: 20px;">
+        <div class="spinner"></div>
+        <p style="margin-top: 15px; font-family: sans-serif; font-size: 12px; color: #64748b; font-weight: bold; letter-spacing: 2px;">MEMUAT PORTAL...</p>
+    </div>
+
+    <iframe 
+        id="app-frame" 
+        src="https://script.google.com/macros/s/AKfycbz48nTp1m8h2acLVnfGJVVKEqt71CMFA1lNMCUFNswapFzqg7Dv9v8IAyipE-6HBxwYew/exec" 
+        allow="camera *; microphone *; fullscreen *; display-capture *"
+        onload="document.getElementById('loading-screen').style.opacity = '0'; setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500);">
+    </iframe>
+
 </body>
 </html>
